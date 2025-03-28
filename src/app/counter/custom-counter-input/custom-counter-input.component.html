@@ -7,4 +7,11 @@
     <button class="btn btn-primary m-3" (click)="addValue()">add Value</button>
 
   </div>
+
+<div>
+    {{channelName$ | async}}
+</div>
+  <div>
+    <button class="btn btn-info" (click)="onChangeChannelName()"> change channel name</button>
+  </div>
 </div>
