@@ -2,27 +2,33 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CounterComponent } from './counter/counter/counter.component';
-import { CounterOutputComponent } from './counter/counter-output/counter-output.component';
-import { CounterButtonComponent } from './counter/counter-button/counter-button.component';
 import { StoreModule } from '@ngrx/store';
-import { counterReducer } from './counter/state/counter.reducers';
-import { CustomCounterInputComponent } from './counter/custom-counter-input/custom-counter-input.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
+import { appReducer } from './store/app.state';
+import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CounterComponent,
-    CounterOutputComponent,
-    CounterButtonComponent,
-    CustomCounterInputComponent
+    HomeComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
-    StoreModule.forRoot({ counter: counterReducer }) // Ensure correct syntax
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      logOnly: environment.production
+    }),
+    EffectsModule.forRoot([]),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

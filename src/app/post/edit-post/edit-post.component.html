@@ -1,0 +1,52 @@
+<div class="row my-4">
+    <div class="col-md-12">
+      <h3>Update Post</h3>
+      <hr>
+      <form [formGroup]="postForm" (ngSubmit)="updatePost()">
+        
+        <!-- Title Field -->
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            [ngClass]="{'is-invalid': isInvalid('title')}" 
+            formControlName="title">
+            <div *ngIf="isInvalid('title')" class="invalid-feedback">
+                <small *ngIf="postForm.get('title')?.errors?.['required']">
+                  Title is required.
+                </small>
+                <small *ngIf="postForm.get('title')?.errors?.['minlength']">
+                  Title must be at least 6 characters long.
+                </small>
+              </div>
+        </div>
+  
+        <!-- Description Field -->
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea 
+            class="form-control" 
+            placeholder="Leave a description here" 
+            [ngClass]="{'is-invalid': isInvalid('title')}" 
+            formControlName="description">
+          </textarea>
+          <div *ngIf="isInvalid('description')" class="invalid-feedback">
+            <small *ngIf="postForm.get('description')?.errors?.['required']">
+              Description is required.
+            </small>
+            <small *ngIf="postForm.get('description')?.errors?.['minlength']">
+              Description must be at least 20 characters long.
+            </small>
+          </div>
+        </div>
+  
+        <!-- Submit Button -->
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Update Post</button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+  
