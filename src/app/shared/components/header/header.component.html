@@ -19,10 +19,12 @@
       
 
       </ul>
-
+        
       <ul class="nav navbar-nav navbar-right">
-        <li><a [routerLink]="['/auth']"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a [routerLink]="['/auth/signup']"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a [routerLink]="['/auth/signup']"><span class="glyphicon glyphicon-log-in"></span> Sign Up</a></li>
+        <li *ngIf="!(isAuthenticated |async)"><a [routerLink]="['/auth']"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+        <li *ngIf="isAuthenticated |async"><a [routerLink]="['/auth']"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+
       </ul>
     </div>
   </div>

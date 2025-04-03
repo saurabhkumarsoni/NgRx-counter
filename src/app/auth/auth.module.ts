@@ -4,9 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
-import { AUTH_STATE_NAME } from './state/auth.selector';
-import { AuthReducer } from './state/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffect } from './state/auth.effect';
 
 const routes: Routes = [
   {
@@ -35,7 +34,7 @@ const routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature(AUTH_STATE_NAME, AuthReducer)
+    EffectsModule.forFeature([AuthEffect])
   ]
 })
 export class AuthModule { }

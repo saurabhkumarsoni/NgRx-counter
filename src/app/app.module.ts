@@ -11,23 +11,28 @@ import { environment } from 'src/environments/environment';
 import { appReducer } from './store/app.state';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
+import { LoadingSpinnnerComponent } from './shared/components/loading-spinnner/loading-spinnner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
+    LoadingSpinnnerComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
-      logOnly: environment.production
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+      autoPause: true, // Auto-pauses when not focused
     }),
+    
     EffectsModule.forRoot([]),
+    StoreModule.forRoot(appReducer),
     HttpClientModule,
   ],
   providers: [],
