@@ -10,8 +10,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { appReducer } from './store/app.state';
 import { EffectsModule } from '@ngrx/effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoadingSpinnnerComponent } from './shared/components/loading-spinnner/loading-spinnner.component';
+import { AuthEffect } from './auth/state/auth.effect';
+import { AuthTokenInterceptor } from './services/authToken.interceptor';
 
 @NgModule({
   declarations: [
@@ -25,17 +27,19 @@ import { LoadingSpinnnerComponent } from './shared/components/loading-spinnner/l
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    EffectsModule.forRoot([AuthEffect]),
+    StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
-      logOnly: environment.production, // Restrict extension to log-only mode
-      autoPause: true, // Auto-pauses when not focused
+      logOnly: environment.production,
     }),
-    
-    EffectsModule.forRoot([]),
+
+    EffectsModule.forRoot([AuthEffect]),
     StoreModule.forRoot(appReducer),
     HttpClientModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
